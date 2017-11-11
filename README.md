@@ -69,16 +69,19 @@ There are three set of validation dataset to evaluate how well the trained model
 3) **following_images**: Test how well the network can identify the target while following them.
 
 Results of dataset (1):
+
 ![png](./writeup_images/valid_output_1_1.png)
 ![png](./writeup_images/valid_output_1_2.png)
 ![png](./writeup_images/valid_output_1_3.png)
 
 Results of dataset (2):
+
 ![png](./writeup_images/valid_output_2_1.png)
 ![png](./writeup_images/valid_output_2_2.png)
 ![png](./writeup_images/valid_output_2_3.png)
 
 Results of dataset (3):
+
 ![png](./writeup_images/valid_output_3_1.png)
 ![png](./writeup_images/valid_output_3_2.png)
 ![png](./writeup_images/valid_output_3_3.png)
