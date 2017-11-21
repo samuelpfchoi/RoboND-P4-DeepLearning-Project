@@ -126,5 +126,6 @@ The following image links to the youtube video of the simulation result, you may
 This model was trained by the set of training data, hero & people, with human characterisics. If using this model to identify other object(dog, cat, car, etc), then we must provide the set of the corresponding training data to re-training the model.
 
 **Improvement**
-
-Recently, there is a completely new type of neural network based on so-called **capsules**. It incorporates relative relationships between objects and it is represented numerically as a 4D pose matrix. Maybe, we can applied some idea from capsules network to archieve more accuracy result with less training data.
+* When training this network, we need to gather a huge amount of training data to get higher accuracy. It is time consuming thus we can use augmented method to generate more training data based on exiting data.
+* Use adam optimizer to train the network, so the learning rate was not need to tune manually
+* Recently, there is a completely new type of neural network based on so-called **capsules**. It incorporates relative relationships between objects and it is represented numerically as a 4D pose matrix. Maybe, we can applied some idea from capsules network to archieve more accuracy result with less training data.
