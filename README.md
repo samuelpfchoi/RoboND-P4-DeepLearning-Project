@@ -110,5 +110,8 @@ The following image links to the youtube video of the simulation result, you may
     </a>
 </p>
 
+**limitation**
+This model was trained by the set of training data, hero & people, with human characterisics. If using this model to identify other object(dog, cat, car, etc), then we must provide the set of the corresponding training data to re-training the model.
+
 **Improvement**
 Recently, there is a completely new type of neural network based on so-called **capsules**. It incorporates relative relationships between objects and it is represented numerically as a 4D pose matri. Maybe, we can applied some idea from capsules network to archieve more accuracy result with less training data.
