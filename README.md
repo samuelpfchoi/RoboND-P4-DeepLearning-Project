@@ -43,6 +43,8 @@ def fcn_model(inputs, num_classes):
     return layers.Conv2D(num_classes, 1, activation='softmax', padding='same')(x)
 ```
 
+For more detailed, please refer to [model_training.ipynb](https://github.com/samuelpfchoi/RoboND-P4-DeepLearning-Project/blob/master/code/model_training.ipynb)
+
 ### Training, Validation and Scoring
 
 **Hyperparameters**
