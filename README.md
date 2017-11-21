@@ -109,3 +109,6 @@ The following image links to the youtube video of the simulation result, you may
         <img src="https://img.youtube.com/vi/FUz385ahS-U/0.jpg" alt="video output">
     </a>
 </p>
+
+**Improvement**
+Recently, there is a completely new type of neural network based on so-called **capsules**. It incorporates relative relationships between objects and it is represented numerically as a 4D pose matri. Maybe, we can applied some idea from capsules network to archieve more accuracy result with less training data.
