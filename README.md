@@ -20,7 +20,7 @@ In general, FCNs consists of 3 parts:
 
 * **Decoders** - It likes Transposed Convolutions help in upsampling the previous layer to a desired resolution or dimension. Suppose you have a 3x3 input and you wish to upsample that to the desired dimension of 6x6. The process involves multiplying each pixel of your input with a kernel or filter. If this filter was of size 5x5, the output of this operation will be a weighted kernel of size 5x5. This weighted kernel then defines your output layer.
 
-![png](./writeup_images/fcn.png)
+![png](./writeup_images/fcn_2.png)
 
 The following snippet code, shown below, is used to define the FCN model:
 
