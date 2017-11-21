@@ -14,12 +14,13 @@ In this project, we will train a deep neural network to identify and track a tar
 In this project, Fully Convolutional Networks (FCN) was used for semantic segmentation. It segment quadcopter images and classifed them into three categories: background, people and hero. this project is based the location of the detected hero to adjust the control command of the quadcopter and to follow her.
 
 In general, FCNs consists of 3 parts:
-* Encoders
-* 1x1 convolution
-* Decoders
+* **Encoders** - It is used to extract key features from input image.
+
+* **1x1 convolution** - It is 1x1 convolutional filter behaves exactly the same as “normal” filters. The filter pools the information across multi feature maps. The size of the kernel actually is 1 * 1 * k where k is the number of feature maps. This is one way to compress these feature maps into one (or you can think of it as dimension reduction). If the values of the kernel are equal, the kernel is the average pooling.
+
+* **Decoders** - It likes Transposed Convolutions help in upsampling the previous layer to a desired resolution or dimension. Suppose you have a 3x3 input and you wish to upsample that to the desired dimension of 6x6. The process involves multiplying each pixel of your input with a kernel or filter. If this filter was of size 5x5, the output of this operation will be a weighted kernel of size 5x5. This weighted kernel then defines your output layer.
 
 ![png](./writeup_images/fcn.png)
-
 
 The following snippet code, shown below, is used to define the FCN model:
 
