@@ -116,4 +116,4 @@ This model was trained by the set of training data, hero & people, with human ch
 
 **Improvement**
 
-Recently, there is a completely new type of neural network based on so-called **capsules**. It incorporates relative relationships between objects and it is represented numerically as a 4D pose matri. Maybe, we can applied some idea from capsules network to archieve more accuracy result with less training data.
+Recently, there is a completely new type of neural network based on so-called **capsules**. It incorporates relative relationships between objects and it is represented numerically as a 4D pose matrix. Maybe, we can applied some idea from capsules network to archieve more accuracy result with less training data.
