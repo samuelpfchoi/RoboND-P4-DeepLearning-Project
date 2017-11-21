@@ -50,12 +50,15 @@ def fcn_model(inputs, num_classes):
 Generally, my approach to selecting the parameters is: increasing the value of batch_size and steps_per_epoach gradually per training cycle and after reaching certain level of accuracy, I tried to reduce the learning_rate in order to acheive further higher accuracy.
 
 **batch_size**
+
 I tried three batch_size, 32, 64, 128. It seems that it not significant improvement on final score.
 
 **learning_rate**
+
 I tried two learning rates, 0.01 and 0.005. I noticed that lower learning rate can singificantly improve the accuracy but its drawback increase training time.
 
 **workers**
+
 In additional to tunning parameter for accurary, I also tried used no. of different value of *workers" parameter in order to speedup the training time. However, it seems no significant improvement thus I stick back to default value.
 
 After tested no. of combination of hyperparameters, I selected the set of parameters, shown in below, that can acheive the score above the required threshold, 0.4:
