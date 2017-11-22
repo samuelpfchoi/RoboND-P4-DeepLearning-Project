@@ -16,13 +16,18 @@ In this project, Fully Convolutional Networks (FCN) was used for semantic segmen
 ![png](./writeup_images/fcn_2.png)
 
 FCNs consists of components:
-* **Encoders** - It is a series of convolution layers like VGG and ResNet. The goal of the encoder is to extract key features from input image. We can borrow techniques from transfer learning to accelerate the training of our FCNs. It’s common for the encoder to be pre-trained on ImageNet. VGG and ResNet are popular choices.
+* **Encoders** - It is a series of convolution layers that share their parameters across space. It might have several layers, and each layer might capture a different level in the hierarchy of objects. The first layer is the lowest level in hierarchy, where the CNN generally classifies small parts of the image into simple shapes like horizontal and vertical lines and simple blobs of colors. The subsequent layers tend to be higher levels in the hierarchy and generally classify more complex ideas like shapes (combinations of lines), and eventually full objects.
 
-* **Decoders** - It up-scales the output of the encoder, such that it’s the same size as the original image. Thus, it results in segmentation or prediction of each individual pixel in the original image.
+The goal of the encoder is to extract key features from input image. We can borrow techniques from transfer learning to accelerate the training of our FCNs. It’s common for the encoder to be pre-trained on ImageNet. VGG and ResNet are popular choices.
+
+* **Decoders** - It map the features extracted by the encoders into an image with the same resolution as the input image, such that it’s the same size as the original image. Thus, it results in segmentation or prediction of each individual pixel in the original image. The decoder network which consists of a hierarchy of decoders one corresponding to each encoder.
 
 Beside, FCN also used three special techniques:
 
-* **1x1 convolution** - It is 1x1 convolutional filter behaves exactly the same as “normal” filters. The filter pools the information across multi feature maps. The size of the kernel actually is 1x1xk where k is the number of feature maps. This is one way to compress these feature maps into one (or you can think of it as dimension reduction). If the values of the kernel are equal, the kernel is the average pooling. Comparing fully connected layer and 1x1 convolution, if we feed the output of a convolutional layer into a fully connected layer, we flatten it into a 2D tensor. This results in the loss of spatial information, because no information about the location of the pixels is preserved. We can avoid that by using 1x1 convolutions, i.e. the spatial information will be preserved with 1x1 convolutions.
+* **1x1 convolution** - It is 1x1 convolutional filter behaves exactly the same as “normal” filters. The filter pools the information across multi feature maps. The size of the kernel actually is 1x1xk where k is the number of feature maps. This is one way to compress these feature maps into one (or you can think of it as dimension reduction). If the values of the kernel are equal, the kernel is the average pooling. 
+
+Comparing fully connected layer and 1x1 convolution, if we feed the output of a convolutional layer into a fully connected layer, we flatten it into a 2D tensor. This results in the loss of spatial information, because no information about the location of the pixels is preserved. We can avoid that by using 1x1 convolutions, i.e. Using 1x1 convolutions can preserved the spatial information and thus, it is very good for image segmentation.
+
 
 * **Transposed Convolutions** - It is used for decoder. It helps in upsampling the previous layer to a desired resolution or dimension. Suppose you have a 3x3 input and you wish to upsample that to the desired dimension of 6x6. The process involves multiplying each pixel of your input with a kernel or filter. If this filter was of size 5x5, the output of this operation will be a weighted kernel of size 5x5. This weighted kernel then defines your output layer.
 
