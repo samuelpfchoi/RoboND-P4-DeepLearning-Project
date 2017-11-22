@@ -13,14 +13,14 @@ In this project, we will train a deep neural network to identify and track a tar
 
 In this project, Fully Convolutional Networks (FCN) was used for semantic segmentation. It segment quadcopter images and classifed them into three categories: background, people and hero. this project is based the location of the detected hero to adjust the control command of the quadcopter and to follow her.
 
-In general, FCNs consists of 3 parts:
+![png](./writeup_images/fcn_2.png)
+
+FCNs consists of number of parts:
 * **Encoders** - It is used to extract key features from input image.
 
 * **1x1 convolution** - It is 1x1 convolutional filter behaves exactly the same as “normal” filters. The filter pools the information across multi feature maps. The size of the kernel actually is 1 * 1 * k where k is the number of feature maps. This is one way to compress these feature maps into one (or you can think of it as dimension reduction). If the values of the kernel are equal, the kernel is the average pooling.
 
 * **Decoders** - It likes Transposed Convolutions help in upsampling the previous layer to a desired resolution or dimension. Suppose you have a 3x3 input and you wish to upsample that to the desired dimension of 6x6. The process involves multiplying each pixel of your input with a kernel or filter. If this filter was of size 5x5, the output of this operation will be a weighted kernel of size 5x5. This weighted kernel then defines your output layer.
-
-![png](./writeup_images/fcn_2.png)
 
 The following snippet code, shown below, is used to define the FCN model:
 
@@ -43,7 +43,7 @@ def fcn_model(inputs, num_classes):
     return layers.Conv2D(num_classes, 1, activation='softmax', padding='same')(x)
 ```
 
-For more detailed, please refer to [model_training.ipynb](https://github.com/samuelpfchoi/RoboND-P4-DeepLearning-Project/blob/master/code/model_training.ipynb)
+For more detailed, you may refer to [model_training.ipynb](https://github.com/samuelpfchoi/RoboND-P4-DeepLearning-Project/blob/master/code/model_training.ipynb)
 
 ### Training, Validation and Scoring
 
@@ -125,9 +125,9 @@ The following image links to the youtube video of the simulation result, you may
 
 **limitation**
 
-This model was trained by the set of training data, hero & people, with human characterisics. If using this model to identify other object(dog, cat, car, etc), then we must provide the set of the corresponding training data to re-training the model.
+This model was trained by the set of training data, hero & people, with human characteristics. If using this model to identify other object(dog, cat, car, etc), then we must provide the set of the corresponding training data to re-training the model.
 
 **Improvement**
-* When training this network, we need to gather a huge amount of training data to get higher accuracy. It is time consuming thus we can use augmented method to generate more training data based on exiting data.
-* Use adam optimizer to train the network, so the learning rate was not need to tune manually
-* Recently, there is a completely new type of neural network based on so-called **capsules**. It incorporates relative relationships between objects and it is represented numerically as a 4D pose matrix. Maybe, we can applied some idea from capsules network to archieve more accuracy result with less training data.
+* When training this network, we need to gather a huge amount of training data to get enough accuracy. It is time consuming thus we could use augmented method to generate more training data based on exiting.
+* Beside, tuning the hyperparameters manually is another big issue especially when the training required more one/two/more hour per cycle. by my understanding, if using adam optimizer to train the network, the learning rate was not need to tune manually. Or we could have a training program to adjust the parameter automatically based on trained result.
+* Even though if we had a huge set of training data, we still need a very powerful machine or very long computation time to successfully train the network. Therefore, I think if anyway to reduce the requirement of the amount of training data. Recently, there is a completely new type of neural network based on so-called **capsules**. It incorporates relative relationships between objects and it is represented numerically as a 4D pose matrix. Maybe, we can applied some idea from capsules network to achieve more accuracy result with less training data.
