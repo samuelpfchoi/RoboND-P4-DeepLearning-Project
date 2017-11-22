@@ -63,7 +63,7 @@ Totally, I carried out 6 trials with difference hyperparameters. The following t
 | final score       | 0.3722  | 0.4060  | 0.4364  | 0.4198  | 0.4198  | 0.4270  |
 
 
-In additional to tuning parameter for accuracy, I also tried used no. of different value of *workers" parameter in order to speedup the training time. However, it seems no significant improvement thus I stick back to default value.
+In additional to tuning parameter for accuracy, I also tried used no. of different value of **workers** parameter in order to speedup the training time. However, it seems no significant improvement thus I stick back to default value.
 
 
 The following shown the training curves of each training:
