@@ -15,12 +15,24 @@ In this project, Fully Convolutional Networks (FCN) was used for semantic segmen
 
 ![png](./writeup_images/fcn_2.png)
 
-FCNs consists of number of parts:
-* **Encoders** - It is used to extract key features from input image.
+FCNs consists of components:
+* **Encoders** - It is a series of convolution layers like VGG and ResNet. The goal of the encoder is to extract key features from input image. We can borrow techniques from transfer learning to accelerate the training of our FCNs. It’s common for the encoder to be pre-trained on ImageNet. VGG and ResNet are popular choices.
 
-* **1x1 convolution** - It is 1x1 convolutional filter behaves exactly the same as “normal” filters. The filter pools the information across multi feature maps. The size of the kernel actually is 1 * 1 * k where k is the number of feature maps. This is one way to compress these feature maps into one (or you can think of it as dimension reduction). If the values of the kernel are equal, the kernel is the average pooling.
+* **Decoders** - It up-scales the output of the encoder, such that it’s the same size as the original image. Thus, it results in segmentation or prediction of each individual pixel in the original image.
 
-* **Decoders** - It likes Transposed Convolutions help in upsampling the previous layer to a desired resolution or dimension. Suppose you have a 3x3 input and you wish to upsample that to the desired dimension of 6x6. The process involves multiplying each pixel of your input with a kernel or filter. If this filter was of size 5x5, the output of this operation will be a weighted kernel of size 5x5. This weighted kernel then defines your output layer.
+Beside, FCN also used three special techniques:
+
+* **1x1 convolution** - It is 1x1 convolutional filter behaves exactly the same as “normal” filters. The filter pools the information across multi feature maps. The size of the kernel actually is 1x1xk where k is the number of feature maps. This is one way to compress these feature maps into one (or you can think of it as dimension reduction). If the values of the kernel are equal, the kernel is the average pooling. Comparing fully connected layer and 1x1 convolution, if we feed the output of a convolutional layer into a fully connected layer, we flatten it into a 2D tensor. This results in the loss of spatial information, because no information about the location of the pixels is preserved. We can avoid that by using 1x1 convolutions, i.e. the spatial information will be preserved with 1x1 convolutions.
+
+* **Transposed Convolutions** - It is used for decoder. It helps in upsampling the previous layer to a desired resolution or dimension. Suppose you have a 3x3 input and you wish to upsample that to the desired dimension of 6x6. The process involves multiplying each pixel of your input with a kernel or filter. If this filter was of size 5x5, the output of this operation will be a weighted kernel of size 5x5. This weighted kernel then defines your output layer.
+
+* **Skip connection** - If we were to decode the output of the encoder back to the original image size, some information has been lost. Skip connections are a way of retaining the information easily. The way skip connection work is by connecting the output of one layer to a non-adjacent layer.
+
+**Batch Normalization**
+
+Batch normalization is an additional way to optimize network training. Batch normalization is based on the idea that, instead of just normalizing the inputs to the network, we normalize the inputs to layers within the network. It's called "batch" normalization because during training, we normalize each layer's inputs by using the mean and variance of the values in the current mini-batch.
+
+A network is a series of layers, where the output of one layer becomes the input to another. That means we can think of any layer in a neural network as the first layer of a smaller network.
 
 The following snippet code, shown below, is used to define the FCN model:
 
@@ -43,11 +55,16 @@ def fcn_model(inputs, num_classes):
     return layers.Conv2D(num_classes, 1, activation='softmax', padding='same')(x)
 ```
 
-For more detailed, you may refer to [model_training.ipynb](https://github.com/samuelpfchoi/RoboND-P4-DeepLearning-Project/blob/master/code/model_training.ipynb)
+For more detailed implementation of the network, you may refer to [model_training.ipynb](https://github.com/samuelpfchoi/RoboND-P4-DeepLearning-Project/blob/master/code/model_training.ipynb)
 
 ### Training
 
-Totally, I carried out 6 trials with difference hyperparameters. The following table shows the results of the trials:
+My approach to choose the parameters is: increasing the value of batch_size and steps_per_epoach gradually per training cycle and after reaching certain level of accuracy, I tried to reduce the learning_rate in order to achieve further higher accuracy.
+
+In additional to tuning parameter for accuracy, I also tried used no. of different value of **workers** parameter in order to speedup the training time. However, it seems no significant improvement thus I stick back to default value.
+
+
+I totally carried out 6 trials with difference hyperparameters. The following table shows the results of the trials:
 
 
 | Parameter         | Trial 1 | Trial 2 | Trial 3 | Trial 4 | Trial 5 | Trail 6 |
@@ -61,9 +78,6 @@ Totally, I carried out 6 trials with difference hyperparameters. The following t
 | train loss        | 0.0263  | 0.0255  | 0.0186  | 0.0209  | 0.0203  | 0.0210  |
 | validation loss   | 0.0391  | 0.0336  | 0.0297  | 0.0310  | 0.0348  | 0.0292  |
 | final score       | 0.3722  | 0.4060  | 0.4364  | 0.4198  | 0.4198  | 0.4270  |
-
-
-In additional to tuning parameter for accuracy, I also tried used no. of different value of **workers** parameter in order to speedup the training time. However, it seems no significant improvement thus I stick back to default value.
 
 
 The following shown the training curves of each training:
