@@ -45,25 +45,67 @@ def fcn_model(inputs, num_classes):
 
 For more detailed, you may refer to [model_training.ipynb](https://github.com/samuelpfchoi/RoboND-P4-DeepLearning-Project/blob/master/code/model_training.ipynb)
 
-### Training, Validation and Scoring
+### Training
 
-**Hyperparameters**
+Totally, I carried out 6 trials with difference hyperparameters. The following table shows the results of the trials:
 
-Generally, my approach to selecting the parameters is: increasing the value of batch_size and steps_per_epoach gradually per training cycle and after reaching certain level of accuracy, I tried to reduce the learning_rate in order to acheive further higher accuracy.
 
-**batch_size**
+| Parameter         | Trial 1 | Trial 2 | Trial 3 | Trial 4 | Trial 5 | Trail 6 |
+| ----------------- | ------- | ------- | ------- | ------- | ------- | -------
+| learning rate     | 0.01    | 0.01    | 0.01    | 0.01    | 0.01    | 0.005   |
+| batch size        | 64      | 32      | 128     | 128     | 128     | 128     |
+| num epochs        | 10      | 10      | 10      | 10      | 10      | 10      |
+| steps per epoch   | 300     | 300     | 300     | 500     | 100     | 500     |
+| validation steps  | 50      | 50      | 50      | 50      | 50      | 50      |
+| workers           | 2       | 2       | 2       | 2       | 5       | 2       |
+| train loss        | 0.0263  | 0.0255  | 0.0186  | 0.0209  | 0.0203  | 0.0210  |
+| validation loss   | 0.0391  | 0.0336  | 0.0297  | 0.0310  | 0.0348  | 0.0292  |
+| final score       | 0.3722  | 0.4060  | 0.4364  | 0.4198  | 0.4198  | 0.4270  |
 
-I tried three batch_size, 32, 64, 128. It seems that it not significant improvement on final score.
 
-**learning_rate**
+In additional to tuning parameter for accuracy, I also tried used no. of different value of *workers" parameter in order to speedup the training time. However, it seems no significant improvement thus I stick back to default value.
 
-I tried two learning rates, 0.01 and 0.005. I noticed that lower learning rate can singificantly improve the accuracy but its drawback increase training time.
 
-**workers**
+The following shown the training curves of each training:
 
-In additional to tunning parameter for accurary, I also tried used no. of different value of *workers" parameter in order to speedup the training time. However, it seems no significant improvement thus I stick back to default value.
+**Trial 1** - [model_training_trial_01.ipynb](https://github.com/samuelpfchoi/RoboND-P4-DeepLearning-Project/blob/master/code/model_training_trial_01.ipynb)
 
-After tested no. of combination of hyperparameters, I selected the set of parameters, shown in below, that can acheive the score above the required threshold, 0.4:
+![png](./writeup_images/training_curves_trial_01.png)
+
+300/300 [==============================] - 243s - loss: 0.0263 - val_loss: 0.0391
+
+**Trial 2** - [model_training_trial_02.ipynb](https://github.com/samuelpfchoi/RoboND-P4-DeepLearning-Project/blob/master/code/model_training_trial_02.ipynb)
+
+![png](./writeup_images/training_curves_trial_02.png)
+
+300/300 [==============================] - 106s - loss: 0.0255 - val_loss: 0.0336
+
+**Trial 3** - [model_training_trial_03.ipynb](https://github.com/samuelpfchoi/RoboND-P4-DeepLearning-Project/blob/master/code/model_training_trial_03.ipynb)
+
+![png](./writeup_images/training_curves_trial_03.png)
+
+300/300 [==============================] - 420s - loss: 0.0186 - val_loss: 0.0297
+
+**Trial 4** - [model_training_trial_04.ipynb](https://github.com/samuelpfchoi/RoboND-P4-DeepLearning-Project/blob/master/code/model_training_trial_04.ipynb)
+
+![png](./writeup_images/training_curves_trial_04.png)
+
+500/500 [==============================] - 699s - loss: 0.0209 - val_loss: 0.0310
+
+**Trial 5** - [model_training_trial_05.ipynb](https://github.com/samuelpfchoi/RoboND-P4-DeepLearning-Project/blob/master/code/model_training_trial_05.ipynb)
+
+![png](./writeup_images/training_curves_trial_05.png)
+
+100/100 [==============================] - 148s - loss: 0.0203 - val_loss: 0.0348
+
+**Trial 6** - [model_training.ipynb](https://github.com/samuelpfchoi/RoboND-P4-DeepLearning-Project/blob/master/code/model_training.ipynb)
+
+![png](./writeup_images/training_curves_trial_06.png)
+
+500/500 [==============================] - 691s - loss: 0.0210 - val_loss: 0.0292
+
+
+After tested no. of combination of hyperparameters, I selected the set of parameters, shown in below, that can achieve the score above the required threshold, 0.4:
 
 ``` python
 learning_rate = 0.005 
